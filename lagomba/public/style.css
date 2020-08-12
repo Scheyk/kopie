@@ -1,0 +1,8 @@
+.head {
+  height: 30em;
+  background-image: url("img/header.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;  
+}
+
