@@ -5,9 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Asset\Package;
-
-
+use  Symfony\Component\HttpFoundation\Request;
 
 class LaGombaController extends AbstractController
 {
@@ -20,19 +18,27 @@ class LaGombaController extends AbstractController
     }
 
     /**
-     * @Route("/about", name="about")
+     * @Route("/nora", name="nora")
      */
-    public function about()
+    public function nora()
     {
-        return $this->render('la_gomba/about.html.twig');
+        return $this->render('la_gomba/nora.html.twig');
     }
 
     /**
-     * @Route("/rezepte", name="rezepte")
+     * @Route("/products", name="products")
      */
-    public function rezepte()
+    public function products()
     {
-        return $this->render('la_gomba/rezepte.html.twig');
+        return $this->render('la_gomba/product.html.twig');
+    }
+
+    /**
+     * @Route("/recipes", name="recipes")
+     */
+    public function recipes()
+    {
+        return $this->render('la_gomba/recipes.html.twig');
     }
 
     /**
