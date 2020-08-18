@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.paypal.com/sdk/js?client-id=AaZFCU9ubMh4l3vz4k4Qgb9ohg27-fPtEUA2JTzLGxzIynnbkxnIn1Cwwg79sNv-jxd9XYD2wdGOv4oc&currency=EUR"></script>
-    <title>{% block title %}Mushroom Webshop{% endblock %}</title>
+    <title>{% block title %}LaGomba{% endblock %}</title>
+    <link rel="icon" type="image/png" href="../img/logo.png">
     {% block stylesheets %}
     <link
       rel="stylesheet"
@@ -21,13 +22,14 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous"
-    />
+    />   
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     {% endblock %}
   </head>
 
-  <body>
+  <body>  
+
     {% include "inc/navbar_2.html.twig" %} {% block body %}{% endblock %} {%
     include 'inc/footer.html.twig' %} {% block javascripts %}
     <script
@@ -48,10 +50,10 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
       crossorigin="anonymous"
-    ></script>
+    ></script>    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/pp.js') }}"></script>
+    <script src="{{ asset('js/pp.js') }}"></script>    
     {% endblock %}
   </body>
 </html>

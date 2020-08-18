@@ -2,51 +2,52 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CartRepository")
+ * Cart
+ *
+ * @ORM\Table(name="cart")
+ * @ORM\Entity
  */
 class Cart
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="qty", type="integer", nullable=false)
      */
     private $qty;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="sub_total", type="integer", nullable=false)
      */
-    private $sub_total;
+    private $subTotal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="total", type="integer", nullable=false)
      */
     private $total;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $created_at;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CartItem", mappedBy="cart_id")
-     */
-    private $cartItems;
-
-    public function __construct()
-    {
-        $this->cartItems = new ArrayCollection();
-    }
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -67,12 +68,12 @@ class Cart
 
     public function getSubTotal(): ?int
     {
-        return $this->sub_total;
+        return $this->subTotal;
     }
 
-    public function setSubTotal(int $sub_total): self
+    public function setSubTotal(int $subTotal): self
     {
-        $this->sub_total = $sub_total;
+        $this->subTotal = $subTotal;
 
         return $this;
     }
@@ -91,79 +92,15 @@ class Cart
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    /**
-     * @return CartItem[]|Collection
-     */
-    public function getCartItems(): Collection
-    {
-        return $this->cartItems;
-    }
 
-    public function addCartItem(CartItem $cartItem): self
-    {
-        if (!$this->cartItems->contains($cartItem)) {
-            $this->cartItems[] = $cartItem;
-            $cartItem->setCartId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCartItem(CartItem $cartItem): self
-    {
-        if ($this->cartItems->contains($cartItem)) {
-            $this->cartItems->removeElement($cartItem);
-            // set the owning side to null (unless already changed)
-            if ($cartItem->getCartId() === $this) {
-                $cartItem->setCartId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getItemCount(array $array)
-    {
-        $sum = 0;
-        foreach ($array as $key => $value) {
-            $sum += $value['qty'];
-        }
-
-        return $sum;
-    }
-
-    public function getItemPrice(array $array)
-    {
-        $sum = 0;
-        foreach ($array as $key => $value) {
-            $sum += $value['unit_price'] * $value['qty'];
-        }
-
-        return $sum;
-    }
-
-    public function getItemTotal(array $array)
-    {
-        return $this->getItemSubTotal($array);
-    }
-
-    public function getItemSubTotal(array $array)
-    {
-        $sum = 0;
-        foreach ($array as $key => $value) {
-            $sum += $value['unit_price'] * $value['qty'];
-        }
-
-        return $sum;
-    }
 }

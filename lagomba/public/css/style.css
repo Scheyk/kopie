@@ -1,8 +1,3 @@
-body {
-  cursor: url('pilz.svg');
-  
-}
-
 h1 {
   margin: 0;
 }
@@ -37,7 +32,7 @@ textarea {
 /* about mushrooms page start */
 [class*="parallax"] {
   /* The image used */
-  background-image: url("../img/23.JPG");
+  background-image: url("../img/16.JPG");
 
   /* Set a specific height */
   min-height: 500px; 
@@ -50,27 +45,23 @@ textarea {
 }
 
 [class*="_1"] {
-    background-image: url("../img/16.JPG");
+    background-image: url("../img/5.JPG");
 }
 
 [class*="_2"] {
-    background-image: url("../img/20.JPG");
+    background-image: url("../img/2.JPG");
 }
 
 [class*="_3"] {
-    background-image: url("../img/15.JPG");
+    background-image: url("../img/3.jpg");
 }
 
 [class*="_4"] {
-    background-image: url("../img/25.jpeg");
+    background-image: url("../img/4.jpg");
 }
 
 [class*="_5"] {
-    background-image: url("../img/24.jpg");
-}
-
-[class*="_6"] {
-    background-image: url("../img/26.jpg");
+    background-image: url("../img/1.JPG");
 }
 
 /* about-mushrooms page end */
@@ -105,5 +96,9 @@ textarea {
 /* resipes-page start */
 .icon {
   width: 2em;      
+}
+
+.icon-back {
+  background-color: #FFC107;
 }
 /* resipes-page end */

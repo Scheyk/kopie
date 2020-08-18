@@ -5,4 +5,5 @@ $(document).ready(() => {
     $('#alert-message').slideUp('slow', () => { 
         $('#alert-message').remove();});
 }, 4000);
+
 })

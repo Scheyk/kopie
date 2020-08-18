@@ -2,88 +2,84 @@
 
 namespace App\Entity;
 
-use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MushroomRepository")
+ * Mushroom
+ *
+ * @ORM\Table(name="mushroom")
+ * @ORM\Entity
  */
 class Mushroom
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="float")
+     * @var float
+     *
+     * @ORM\Column(name="unit_price", type="float", precision=10, scale=0, nullable=false)
      */
-    private $unit_price;
+    private $unitPrice;
 
     /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=0, nullable=false)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime", nullable=false)
      */
-    private $created_at;
+    private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
-    private $updated_at;
+    private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CartItem", mappedBy="mushroom_id")
-     */
-    private $cartItems;
-
-    /**
-     * @ORM\Column(type="text")
+     * @var string
+     *
+     * @ORM\Column(name="img", type="text", length=0, nullable=false)
      */
     private $img;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="stock", type="integer", nullable=false)
      */
     private $stock;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="quantity", type="integer", nullable=false)
      */
     private $quantity;
-
-    public function __construct()
-    {
-        $this->cartItems = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?int
-    {
-        return $this->category;
-    }
-
-    public function setCategory(int $category): self
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -98,26 +94,14 @@ class Mushroom
         return $this;
     }
 
-    public function getunit_price(): ?int
+    public function getUnitPrice(): ?float
     {
-        return $this->unit_price;
+        return $this->unitPrice;
     }
 
-    public function setunit_price(int $unit_price): self
+    public function setUnitPrice(float $unitPrice): self
     {
-        $this->unit_price = $unit_price;
-
-        return $this;
-    }
-
-    public function getUnitPrice(): ?int
-    {
-        return $this->unit_price;
-    }
-
-    public function setUnitPrice(int $unit_price): self
-    {
-        $this->unit_price = $unit_price;
+        $this->unitPrice = $unitPrice;
 
         return $this;
     }
@@ -134,64 +118,28 @@ class Mushroom
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTime $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?DateTime $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * @return CartItem[]|Collection
-     */
-    public function getCartItems(): Collection
-    {
-        return $this->cartItems;
-    }
-
-    public function addCartItem(CartItem $cartItem): self
-    {
-        if (!$this->cartItems->contains($cartItem)) {
-            $this->cartItems[] = $cartItem;
-            $cartItem->setMushroomId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCartItem(CartItem $cartItem): self
-    {
-        if ($this->cartItems->contains($cartItem)) {
-            $this->cartItems->removeElement($cartItem);
-            // set the owning side to null (unless already changed)
-            if ($cartItem->getMushroomId() === $this) {
-                $cartItem->setMushroomId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getMushroomCount($session)
-    {
-        return $session->get('cart') ? count($session->get('cart')) : 0;
     }
 
     public function getImg(): ?string
@@ -229,4 +177,6 @@ class Mushroom
 
         return $this;
     }
+
+
 }
