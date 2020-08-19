@@ -2,80 +2,61 @@
 
 namespace App\Entity;
 
+use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Order
- *
- * @ORM\Table(name="order")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=OrderRepository::class)
+ * @ORM\Table(name="`order`")
  */
 class Order
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="items", type="array", length=0, nullable=false)
+     * @ORM\Column(type="array")
      */
-    private $items;
+    private $items = [];
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $address;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $city;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="zip", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
     private $zip;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="total", type="float", precision=10, scale=0, nullable=false)
+     * @ORM\Column(type="float")
      */
     private $total;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(type="integer")
      */
-    private $userId;
+    private $user_id;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="order_time", type="datetime", nullable=false)
+     * @ORM\Column(type="datetime")
      */
-    private $orderTime;
+    private $order_time;
 
     public function getId(): ?int
     {
@@ -156,27 +137,25 @@ class Order
 
     public function getUserId(): ?int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
-    public function setUserId(int $userId): self
+    public function setUserId(int $user_id): self
     {
-        $this->userId = $userId;
+        $this->user_id = $user_id;
 
         return $this;
     }
 
     public function getOrderTime(): ?\DateTimeInterface
     {
-        return $this->orderTime;
+        return $this->order_time;
     }
 
-    public function setOrderTime(\DateTimeInterface $orderTime): self
+    public function setOrderTime(\DateTimeInterface $order_time): self
     {
-        $this->orderTime = $orderTime;
+        $this->order_time = $order_time;
 
         return $this;
     }
-
-
 }

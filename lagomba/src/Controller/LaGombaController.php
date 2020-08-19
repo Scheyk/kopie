@@ -2,18 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
-
 use App\Entity\Contact;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\Entity\Recipes;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-
-
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class LaGombaController extends AbstractController
 {
@@ -46,7 +42,9 @@ class LaGombaController extends AbstractController
      */
     public function recipes()
     {
-        return $this->render('lagomba/recipes.html.twig');
+        $recipes = $this->getDoctrine()->getRepository('App:Recipes')->findAll();
+
+        return $this->render('lagomba/recipes.html.twig', ['recipes' => $recipes]);
     }
 
     /**
@@ -54,60 +52,88 @@ class LaGombaController extends AbstractController
      */
     public function contact(Request $request)
     {
-        $contact = new Contact;
+        $contact = new Contact();
 
         $form = $this->createFormBuilder($contact)->
-                add('name', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:10px')))->
-                add('email', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:10px')))->
-                add('message', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:10px', 'rows'=>'5')))->
-                add('submit', SubmitType::class, array('label'=> 'send', 'attr' => array('class'=> 'btn-warning font-weight-bold text-secondary', 'style'=>'margin-bottom:10px')))            
-                ->getForm();
-                $form->handleRequest($request);
+                add('name', TextType::class, ['attr' => ['class' => 'form-control', 'style' => 'margin-bottom:10px']])->
+                add('email', TextType::class, ['attr' => ['class' => 'form-control', 'style' => 'margin-bottom:10px']])->
+                add('message', TextareaType::class, ['attr' => ['class' => 'form-control', 'style' => 'margin-bottom:10px', 'rows' => '5']])->
+                add('submit', SubmitType::class, ['label' => 'Send', 'attr' => ['class' => 'btn btn-warning font-weight-bold text-secondary', 'style' => 'margin-bottom:10px']])
+                    ->getForm()
+                ;
+        $form->handleRequest($request);
 
-                if($form->isSubmitted() && $form->isValid())
-                {
-                    $name = $form['name']->getData();
-                    $email = $form['email']->getData();
-                    $message = $form['message']->getData();
-                    $sendDate = $form['sendDate']->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $name = $form['name']->getData();
+            $email = $form['email']->getData();
+            $message = $form['message']->getData();
 
-                    $contact->setName($name);
-                    $contact->setMessage($message);
-                    $contact->setEmail($email);
-                    $contact->setSendDate($sendDate);                    
+            $contact->setName($name);
+            $contact->setMessage($message);
+            $contact->setEmail($email);
+            $contact->setSendDate(new \DateTime());
 
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($contact);
-                    $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
 
-                    $this->addFlash(
-                                'notice',
-                                'send message');
-                    return $this->redirectToRoute('contact');
-                }
+            $this->addFlash(
+                'notice',
+                'Your message has been received! Thank you!'
+            );
 
-                return $this->render('lagomba/contact.html.twig', array('form'=>$form->createView()));
+            return $this->redirectToRoute('contact');
+        }
+
+        return $this->render('lagomba/contact.html.twig', ['form' => $form->createView()]);
     }
 
     /**
-     * @Route("/showAll", name="showAll")
+     * @Route("/admin/showAll", name="showAll")
      */
     public function showAll()
     {
         $contact = $this->getDoctrine()->getRepository('App:Contact')->findAll();
 
-        return $this->render('lagomba/showMessage.html.twig', array('contact'=>$contact));
-    } 
+        return $this->render('lagomba/showMessage.html.twig', ['contact' => $contact]);
+    }
 
     /**
-    * @Route("/details/{id}", name="details")
-    */
-   public function detailsAction($id)
-   {
-      
-       $contact = $this->getDoctrine()->getRepository('App:Contact')->find($id);
+     * @Route("/admin/details/{id}", name="details")
+     *
+     * @param mixed $id
+     */
+    public function detailsAction($id)
+    {
+        $contact = $this->getDoctrine()->getRepository('App:Contact')->find($id);
 
-       return $this->render('lagomba/detailMessage.html.twig', array('contact'=>$contact));
-   }   
-    
+        return $this->render('lagomba/detailMessage.html.twig', ['contact' => $contact]);
+    }
+
+    /**
+     * @Route("/admin/delete-msg/{id}", name="delete_msg")
+     *
+     * @param mixed $id
+     */
+    public function deleteMsg($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $contact = $em->getRepository(Contact::class)->find($id);
+
+        if (!$contact) {
+            throw $this->createNotFoundException(
+                'No message with the id: '.$id
+            );
+        }
+
+        $this->addFlash(
+            'notice',
+            'Message Deleted Successfully'
+        );
+
+        $em->remove($contact);
+        $em->flush();
+
+        return $this->redirectToRoute('showAll');
+    }
 }

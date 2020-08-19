@@ -22,14 +22,13 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
       crossorigin="anonymous"
-    />   
+    />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
     {% endblock %}
   </head>
 
-  <body>  
-
+  <body>
     {% include "inc/navbar_2.html.twig" %} {% block body %}{% endblock %} {%
     include 'inc/footer.html.twig' %} {% block javascripts %}
     <script
@@ -50,10 +49,10 @@
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
       crossorigin="anonymous"
-    ></script>    
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/pp.js') }}"></script>    
+    <script src="{{ asset('js/pp.js') }}"></script>
     {% endblock %}
   </body>
 </html>
