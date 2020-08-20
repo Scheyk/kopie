@@ -10,11 +10,11 @@
   <p class="text-center">some chosen ones</p>
 
   <div class="row">
-
+  {% for recipe in recipes %}
     <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-     {% for recipe in recipes %}
+     
       <!-- <h2>Simple Collapsible</h2> -->
-      <a href="#cauliflower" class="" data-toggle="collapse">
+      <a href="#cauliflower_{{ recipe.id }}" class="" data-toggle="collapse">
         <div>
           <div>
             <img class="img-fluid" src="../img/{{ recipe.img }}" alt="">      
@@ -40,13 +40,15 @@
         </div>
       </a>
 
-      <div id="cauliflower" class="collapse p-2">
+      <div id="cauliflower_{{ recipe.id }}" class="collapse p-2">
         
         
         {% if recipe is empty %}
           <p class="text-center"></p>
         {% else %}
-        <p class="mt-1 text-center">
+        <h2 class="font-weight-bold">Step. 1</h2>
+        <hr />
+        <p class="mt-1 text-center">          
           {{ recipe.one }}          
         </p>
         {% endif %}
@@ -54,7 +56,9 @@
         {% if recipe is empty %}
           <p class="text-center"></p>
         {% else %}
-        <p class="mt-1 text-center">
+        <h2 class="font-weight-bold">Step. 2</h2>
+        <hr />
+        <p class="mt-1 text-center">          
           {{ recipe.two }}          
         </p>
         {% endif %}
@@ -62,6 +66,8 @@
         {% if recipe is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 3</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.three }}          
         </p>
@@ -70,94 +76,111 @@
         {% if recipe is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 4</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.four }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
+        {% if recipe.five is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 5</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.five }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
+        {% if recipe.six is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 6</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.six }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
+        {% if recipe.seven is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 7</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.seven }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
+        {% if recipe.eight is empty %}
           <p class="text-center"></p>
         {% else %}
+        <h2 class="font-weight-bold">Step. 8</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.eight }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.nine is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 9</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.nine }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.ten is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 10</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.ten }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.eleven is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 11</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.eleven }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.twelve is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 12</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.twelve }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.thirten is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 13</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.thirten }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.fourteen is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 14</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.fourteen }}          
         </p>
         {% endif %}
 
-        {% if recipe is empty %}
-          
+        {% if recipe.fifty is empty %}          
         {% else %}
+        <h2 class="font-weight-bold">Step. 15</h2>
+        <hr />
         <p class="mt-1 text-center">
           {{ recipe.fifty }}          
         </p>
