@@ -34,6 +34,7 @@ class RecipesController extends AbstractController
                 ])
                 ->add('one', TextType::class, [
                     'attr' => ['class' => 'form-control'],
+                    ['label'=> 'Step 1'],
                 ])
                 ->add('two', TextType::class, [
                     'attr' => ['class' => 'form-control'],
